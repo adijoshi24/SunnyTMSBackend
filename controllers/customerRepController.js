@@ -93,18 +93,21 @@ exports.updateCustomerRep = async (req, res) => {
   console.log(req.body);
   const { name, email, phone } = req.body;
 
+  // checking email in the CustomerRep collections
+  const CustomerRepColl = await CustomerRep.findOne({ email });
   // checking email in all the collections
-  const validateDB = await dbValidator(req, "update");
-  if (!validateDB.success) {
-    return res.status(400).json({ errors: [{ msg: "User already exists" }] });
+  // const validateDB = await dbValidator(req, "update");
+  if (!CustomerRepColl) {
+    return res.status(400).json({ errors: [{ msg: "User doesn't exists" }] });
   } else {
     const salt = await bcrypt.genSalt(10);
     if (req.body.password) {
       password = await bcrypt.hash(req.body.password, salt);
     }
+    console.log("In", req.body._id);
     req.body.password !== ""
       ? CustomerRep.findByIdAndUpdate(
-          req.body.id,
+          req.body._id,
           { password, name, email, phone },
           (err) => {
             if (err) {

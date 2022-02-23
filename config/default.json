@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://sunny:Ambition24!@sunnytms.jprw5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "mongoURIDemo": "mongodb+srv://Aditya:admin@projectcluster.n8akv.mongodb.net/SunnyLogistics?retryWrites=true&w=majority",
+
+  "jwtSecret": "freight"
+}
