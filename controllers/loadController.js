@@ -3,20 +3,19 @@ const Load = require("../models/Load");
 const connectDB = require("../config/db");
 
 exports.addLoad = async (req, res) => {
-  console.log(req.body);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
   try {
     LoadData = new Load(req.body);
-    console.log("LoadData", LoadData);
 
     await LoadData.save();
     res.status(200).json({
       message: "Load added successfully",
       LoadData,
     });
+    console.log("addLoad");
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
@@ -25,17 +24,14 @@ exports.addLoad = async (req, res) => {
 
 exports.getLoad = async (req, res) => {
   const { role, name } = req.body;
-  console.log("loads req.body", req.body);
   var loadList;
   if (
-    role == 1 ||
+    role == "admin" ||
     role == "Carrier Operations" ||
     role == "After Hour Operations"
   ) {
-    console.log("loads role 1");
     var loadList = await Load.find({});
-  } else if (role == 2) {
-    console.log("loads role 2");
+  } else if (role == "customerRep") {
     var loadList = await Load.find({
       customerRep: name,
       status: { $ne: "Deliver" },
@@ -68,7 +64,6 @@ exports.deleteLoad = async (req, res) => {
 
 exports.updateLoad = async (req, res) => {
   const { accessorials, status, margin, dropNotes } = req.body;
-  console.log("req edit load", req.body);
   Load.findOneAndUpdate(
     { _id: req.body._id },
     {

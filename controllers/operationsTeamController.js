@@ -6,7 +6,6 @@ const OperationsTeam = require("../models/OperationsTeam");
 const { dbValidator } = require("./helperFunctions.js/userValidatorDB");
 
 exports.addOperationsTeam = async (req, res) => {
-  console.log(req.body);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -28,7 +27,7 @@ exports.addOperationsTeam = async (req, res) => {
         customerRep,
         name: name,
       });
-      console.log("OperationsTeamData", OperationsTeamData);
+      console.log("addOperationsTeam");
       const salt = await bcrypt.genSalt(10);
 
       OperationsTeamData.password = await bcrypt.hash(password, salt);
@@ -62,15 +61,11 @@ exports.addOperationsTeam = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
-
 exports.getOperationsTeam = async (req, res) => {
-  console.log("getOperationsTeam req.body", req.body);
   var operationsTeamList;
-  if (req.body.role == 1) {
-    console.log("getOperationsTeam role 1");
+  if (req.body.role == "admin") {
     var operationsTeamList = await OperationsTeam.find({});
-  } else if (req.body.role == 2) {
-    console.log("getOperationsTeam role 2");
+  } else if (req.body.role == "customerRep") {
     var operationsTeamList = await OperationsTeam.find({
       customerRep: req.body.name,
     });
@@ -87,6 +82,26 @@ exports.getOperationsTeam = async (req, res) => {
   console.log("getOperationsTeam");
 };
 
+exports.getOTCustomerRep = async (req, res) => {
+  console.log("getOperationsTeam req.body", req.body);
+
+  try {
+    var operationsTeamList = await OperationsTeam.find({
+      name: req.body.name,
+    });
+    customerRepList = operationsTeamList.map((item) => {
+      return item.customerRep;
+    });
+    res.status(200).json({
+      message: "Customer Rep Names fetched successfully",
+      customerRepList,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+
+  console.log("getOperationsTeam");
+};
 exports.deleteOperationsTeam = async (req, res) => {
   OperationsTeam.deleteOne({ _id: req.body.id }, (err) => {
     if (err) {
@@ -102,7 +117,6 @@ exports.deleteOperationsTeam = async (req, res) => {
 };
 
 exports.updateOperationsTeam = async (req, res) => {
-  console.log(req.body);
   var { customerRep, role, name, email, password, phone } = req.body;
 
   const salt = await bcrypt.genSalt(10);

@@ -5,7 +5,6 @@ const config = require("config");
 const Customer = require("../models/Customer");
 
 exports.addCustomer = async (req, res) => {
-  console.log(req.body);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -23,7 +22,7 @@ exports.addCustomer = async (req, res) => {
     // }
 
     CustomerData = new Customer(req.body);
-    console.log("CustomerData", CustomerData);
+    console.log("addCustomer");
 
     await CustomerData.save();
     res.status(200).json({
@@ -66,8 +65,6 @@ exports.deleteCustomer = async (req, res) => {
 };
 
 exports.updateCustomer = async (req, res) => {
-  console.log(req.body);
-
   Customer.findByIdAndUpdate(req.body._id, { $set: req.body }, (err) => {
     if (err) {
       res.send(err);

@@ -19,9 +19,14 @@ exports.loginUser = async (req, res) => {
   }
 
   try {
+    const opsTeam = [
+      "Carrier Operations",
+      "After Hour Operations",
+      "Operations Manager",
+      "Customer Operations",
+    ];
     // Get user input
     const { email, password } = req.body;
-    console.log("req.body", req.body);
     // Find user in all our collections
 
     const validateDB = await dbValidator(req, res);
@@ -40,7 +45,23 @@ exports.loginUser = async (req, res) => {
       // save user token
       user.token = token;
       // user
+      console.log("user---", user);
+      // if (opsTeam.includes(user.role)) {
+      // var operationsTeamList = await OperationsTeam.find({
+      //   name: user.name,
+      // });
+      // customerRepList = operationsTeamList.map((item) => {
+      //   return item.customerRep;
+      // });
+      // res.status(200).json({
+      //   auth: true,
+      //   token,
+      //   user,
+      //   customerRepList,
+      // });
+      // } else {
       res.status(200).json({ auth: true, token, user });
+      // }
     } else {
       res.status(400).json({ msg: "Invalid Credentials" });
     }

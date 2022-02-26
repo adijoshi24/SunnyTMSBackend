@@ -25,9 +25,9 @@ exports.addCustomerRep = async (req, res) => {
         email,
         password,
         phone,
-        role: 2,
+        role: "customerRep",
       });
-      console.log("CustomerRepData", CustomerRepData);
+      console.log("addCustomerRep");
       const salt = await bcrypt.genSalt(10);
 
       CustomerRepData.password = await bcrypt.hash(password, salt);
@@ -39,7 +39,6 @@ exports.addCustomerRep = async (req, res) => {
           id: CustomerRepData.id,
         },
       };
-      console.log("payload", payload);
       jwt.sign(
         payload,
         config.get("jwtSecret"),
@@ -90,7 +89,6 @@ exports.deleteCustomerRep = async (req, res) => {
 };
 
 exports.updateCustomerRep = async (req, res) => {
-  console.log(req.body);
   const { name, email, phone } = req.body;
 
   // checking email in the CustomerRep collections
@@ -104,7 +102,6 @@ exports.updateCustomerRep = async (req, res) => {
     if (req.body.password) {
       password = await bcrypt.hash(req.body.password, salt);
     }
-    console.log("In", req.body._id);
     req.body.password !== ""
       ? CustomerRep.findByIdAndUpdate(
           req.body._id,

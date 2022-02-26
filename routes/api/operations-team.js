@@ -19,19 +19,22 @@ const formValidation = [
     "Please enter a password with 6 or more characters"
   ).isLength({ min: 6 }),
 ];
-//Route POST api/operations-team
+//Route POST api/operations-team/add
 //@desc Add an Operations Team
 router.post("/add", formValidation, OperationsTeamController.addOperationsTeam);
 //Route POST api/operations-team
 //@desc Operations Team data for table
 router.post("/", OperationsTeamController.getOperationsTeam);
-//Route POST api/edit-operations-team
+//Route POST api/operations-team/otcrNames
+//@desc Names of Customer Reps assosiated with the Operations Team
+router.post("/otcrNames", OperationsTeamController.getOTCustomerRep);
+//Route POST api/operations-team/edit-operations-team
 //@desc Edit an Operations Team detail
 router.post(
   "/edit-operations-team",
   OperationsTeamController.updateOperationsTeam
 );
-//Route POST api/delete-operations-team
+//Route POST api/operations-team/delete
 //@desc Delete an Operations Team
 router.post("/delete", OperationsTeamController.deleteOperationsTeam);
 
