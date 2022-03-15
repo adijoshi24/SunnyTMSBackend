@@ -13,7 +13,7 @@ const LoadSchema = new mongoose.Schema({
     required: false,
   },
   customerRep: {
-    // type: String,
+    type: String,
     required: false,
   },
   // slide 1
@@ -140,6 +140,70 @@ const LoadSchema = new mongoose.Schema({
     // required: true,
   },
   dropSpecialInstruction: {
+    type: String,
+    // required: true,
+  },
+  trailerType: {
+    type: String,
+    // required: true,
+  },
+  pickPUNumber: {
+    type: String,
+    // required: true,
+  },
+  pickReferenceId1: {
+    type: String,
+    // required: true,
+  },
+  pickReferenceId2: {
+    type: String,
+    // required: true,
+  },
+  pickReferenceId3: {
+    type: String,
+    // required: true,
+  },
+  pickReferenceId4: {
+    type: String,
+    // required: true,
+  },
+  pickReferenceId5: {
+    type: String,
+    // required: true,
+  },
+  pickCarrierNotes: {
+    type: String,
+    // required: true,
+  },
+  dropCarrierNotes: {
+    type: String,
+    // required: true,
+  },
+  dropDeliveryNumber: {
+    type: String,
+    // required: true,
+  },
+  dropReferenceId1: {
+    type: String,
+    // required: true,
+  },
+  dropReferenceId2: {
+    type: String,
+    // required: true,
+  },
+  dropReferenceId3: {
+    type: String,
+    // required: true,
+  },
+  dropReferenceId4: {
+    type: String,
+    // required: true,
+  },
+  dropReferenceId5: {
+    type: String,
+    // required: true,
+  },
+  dropReferenceId6: {
     type: String,
     // required: true,
   },

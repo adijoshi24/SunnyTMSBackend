@@ -28,6 +28,10 @@ const CustomerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  accountPayablePhoneNumber: {
+    type: Number,
+    required: true,
+  },
 });
 
 module.exports = Customer = mongoose.model("customer", CustomerSchema);

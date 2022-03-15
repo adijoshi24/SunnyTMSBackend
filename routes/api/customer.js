@@ -16,6 +16,10 @@ const formValidation = [
     .notEmpty()
     .normalizeEmail()
     .isEmail(),
+  check("accountPayablePhoneNumber", "Account Payable Phone number is required")
+    .notEmpty()
+    .isNumeric()
+    .isLength({ min: 10 }),
 ];
 //Route POST api/customer
 //@desc Add a Customer

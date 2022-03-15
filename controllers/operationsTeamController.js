@@ -62,12 +62,17 @@ exports.addOperationsTeam = async (req, res) => {
   }
 };
 exports.getOperationsTeam = async (req, res) => {
+  console.log("req.body", req.body);
   var operationsTeamList;
   if (req.body.role == "admin") {
     var operationsTeamList = await OperationsTeam.find({});
   } else if (req.body.role == "customerRep") {
     var operationsTeamList = await OperationsTeam.find({
-      customerRep: req.body.name,
+      email: req.body.email,
+    });
+  } else if (req.body.role == "Customer Operations") {
+    var operationsTeamList = await OperationsTeam.find({
+      email: req.body.email,
     });
   }
   try {

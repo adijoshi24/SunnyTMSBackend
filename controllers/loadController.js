@@ -34,7 +34,7 @@ exports.getLoad = async (req, res) => {
   } else if (role == "customerRep") {
     var loadList = await Load.find({
       customerRep: name,
-      status: { $ne: "Deliver" },
+      // status: { $ne: "Deliver" },
     });
   }
 
